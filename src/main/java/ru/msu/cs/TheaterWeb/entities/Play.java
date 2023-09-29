@@ -11,6 +11,7 @@ import java.time.Duration;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Play implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

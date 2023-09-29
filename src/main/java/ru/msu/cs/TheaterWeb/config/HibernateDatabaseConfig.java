@@ -27,16 +27,18 @@ public class HibernateDatabaseConfig {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
         sessionFactory.setDataSource(getDataSource());
-        sessionFactory.setAnnotatedClasses(Theater.class);
+
+        sessionFactory.setAnnotatedClasses(TicketPrice.class);
+        sessionFactory.setAnnotatedClasses(Ticket.class);
+        sessionFactory.setAnnotatedClasses(Performance.class);
+        sessionFactory.setAnnotatedClasses(Role.class);
+        sessionFactory.setAnnotatedClasses(Play.class);
+        sessionFactory.setAnnotatedClasses(Place.class);
+        sessionFactory.setAnnotatedClasses(Director.class);
         sessionFactory.setAnnotatedClasses(Actor.class);
-        // sessionFactory.setAnnotatedClasses(Director.class);
-        // sessionFactory.setAnnotatedClasses(Place.class);
-        // sessionFactory.setAnnotatedClasses(Play.class);
-        // sessionFactory.setAnnotatedClasses(Role.class);
-        // sessionFactory.setAnnotatedClasses(Performance.class);
-        // sessionFactory.setAnnotatedClasses(Ticket.class);
-        // sessionFactory.setAnnotatedClasses(TicketPrice.class);
-        // sessionFactory.setHibernateProperties(getHibernateProperties());
+        sessionFactory.setAnnotatedClasses(Theater.class);
+
+        sessionFactory.setHibernateProperties(getHibernateProperties());
 
         return sessionFactory;
     }

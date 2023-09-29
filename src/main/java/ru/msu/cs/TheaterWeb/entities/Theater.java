@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Theater implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

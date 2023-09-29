@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Ticket implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

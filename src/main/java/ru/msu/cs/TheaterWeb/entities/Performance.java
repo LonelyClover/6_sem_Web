@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Performance implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

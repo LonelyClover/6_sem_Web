@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Director implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
