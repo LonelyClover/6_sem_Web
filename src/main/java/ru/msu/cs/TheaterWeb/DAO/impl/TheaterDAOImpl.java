@@ -1,6 +1,7 @@
 package ru.msu.cs.TheaterWeb.DAO.impl;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.TheaterDAO;
 import ru.msu.cs.TheaterWeb.entities.Theater;
 
@@ -8,6 +9,7 @@ import jakarta.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class TheaterDAOImpl extends CommonDAOImpl<Theater> implements TheaterDAO {
     public TheaterDAOImpl() {
         super(Theater.class);

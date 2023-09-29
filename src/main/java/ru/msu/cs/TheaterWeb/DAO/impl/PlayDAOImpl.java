@@ -1,6 +1,7 @@
 package ru.msu.cs.TheaterWeb.DAO.impl;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.PlayDAO;
 import ru.msu.cs.TheaterWeb.entities.Play;
 
@@ -8,6 +9,7 @@ import jakarta.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class PlayDAOImpl extends CommonDAOImpl<Play> implements PlayDAO {
     public PlayDAOImpl() {
         super(Play.class);

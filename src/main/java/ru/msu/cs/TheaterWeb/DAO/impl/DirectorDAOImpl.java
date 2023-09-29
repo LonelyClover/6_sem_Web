@@ -1,6 +1,7 @@
 package ru.msu.cs.TheaterWeb.DAO.impl;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.DirectorDAO;
 import ru.msu.cs.TheaterWeb.entities.Director;
 
@@ -8,6 +9,7 @@ import jakarta.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DirectorDAOImpl extends CommonDAOImpl<Director> implements DirectorDAO {
     public DirectorDAOImpl() {
         super(Director.class);
