@@ -1,7 +1,7 @@
 package ru.msu.cs.TheaterWeb.entities;
 
 import lombok.*;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Director")

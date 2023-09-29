@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.TicketDAO;
 import ru.msu.cs.TheaterWeb.entities.Ticket;
 
-import jakarta.persistence.criteria.*;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 

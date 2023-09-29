@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.CommonDAO;
 import ru.msu.cs.TheaterWeb.entities.CommonEntity;
 
-import jakarta.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Repository
