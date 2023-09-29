@@ -26,7 +26,7 @@ public class ActorDAOImpl extends CommonDAOImpl<Actor> implements ActorDAO {
                 predicates.add(builder.like(root.get("name"), likeStr(filter.getActorName())));
             }
             if (filter.getTheaterName() != null) {
-                predicates.add(builder.like(root.get("theater.name"), likeStr(filter.getTheaterName())));
+               predicates.add(builder.like(root.get("theater.name"), likeStr(filter.getTheaterName())));
             }
 
             if (!predicates.isEmpty())

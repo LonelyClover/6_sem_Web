@@ -7,7 +7,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import ru.msu.cs.TheaterWeb.config.TheaterWebApplication;
+import ru.msu.cs.TheaterWeb.TheaterWebApplication;
 import ru.msu.cs.TheaterWeb.entities.Theater;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
 public class TheaterDAOTest {
-    @Autowired()
+    @Autowired
     private TheaterDAO theaterDAO;
 
     @Autowired
@@ -42,12 +42,10 @@ public class TheaterDAOTest {
     @BeforeAll
     @AfterEach
     void destroy() {
+        theaterDAO.deleteAll();
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            NativeQuery query1 = session.createNativeQuery("TRUNCATE \"Theater\" RESTART IDENTITY CASCADE;");
-            query1.executeUpdate();
-            NativeQuery query2 = session.createNativeQuery("ALTER SEQUENCE \"Theater_ID_seq\" RESTART WITH 1;");
-            query2.executeUpdate();
+            session.createSQLQuery("ALTER SEQUENCE \"Theater_ID_seq\" RESTART WITH 1;").executeUpdate();
             session.getTransaction().commit();
         }
     }

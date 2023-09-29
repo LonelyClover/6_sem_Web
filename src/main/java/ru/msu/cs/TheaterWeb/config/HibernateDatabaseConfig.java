@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import ru.msu.cs.TheaterWeb.entities.*;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -26,8 +27,16 @@ public class HibernateDatabaseConfig {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
         sessionFactory.setDataSource(getDataSource());
-        sessionFactory.setPackagesToScan("ru.cs.msu.TheaterWeb");
-        sessionFactory.setHibernateProperties(getHibernateProperties());
+        sessionFactory.setAnnotatedClasses(Theater.class);
+        sessionFactory.setAnnotatedClasses(Actor.class);
+        // sessionFactory.setAnnotatedClasses(Director.class);
+        // sessionFactory.setAnnotatedClasses(Place.class);
+        // sessionFactory.setAnnotatedClasses(Play.class);
+        // sessionFactory.setAnnotatedClasses(Role.class);
+        // sessionFactory.setAnnotatedClasses(Performance.class);
+        // sessionFactory.setAnnotatedClasses(Ticket.class);
+        // sessionFactory.setAnnotatedClasses(TicketPrice.class);
+        // sessionFactory.setHibernateProperties(getHibernateProperties());
 
         return sessionFactory;
     }

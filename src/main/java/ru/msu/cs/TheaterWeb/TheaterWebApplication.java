@@ -1,4 +1,4 @@
-package ru.msu.cs.TheaterWeb.config;
+package ru.msu.cs.TheaterWeb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
