@@ -24,21 +24,16 @@ public class HibernateDatabaseConfig {
     @Bean(name = "entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(oraDataSource());
-        sessionFactory.setPackagesToScan("ru.cs.msu.TheaterWeb.tables");
 
-        Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        hibernateProperties.setProperty("connection_pool_size", "1");
-
-        sessionFactory.setHibernateProperties(hibernateProperties);
+        sessionFactory.setDataSource(getDataSource());
+        sessionFactory.setPackagesToScan("ru.cs.msu.TheaterWeb");
+        sessionFactory.setHibernateProperties(getHibernateProperties());
 
         return sessionFactory;
     }
 
     @Bean
-    public DataSource oraDataSource() {
+    public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName(DB_DRIVER);
@@ -47,5 +42,15 @@ public class HibernateDatabaseConfig {
         dataSource.setPassword(DB_PASSWORD);
 
         return dataSource;
+    }
+
+    public Properties getHibernateProperties() {
+        Properties hibernateProperties = new Properties();
+
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        hibernateProperties.setProperty("connection_pool_size", "1");
+
+        return hibernateProperties;
     }
 }

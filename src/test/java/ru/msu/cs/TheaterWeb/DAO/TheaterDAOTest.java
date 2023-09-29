@@ -7,7 +7,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import ru.msu.cs.TheaterWeb.DAO.impl.TheaterDAOImpl;
 import ru.msu.cs.TheaterWeb.config.TheaterWebApplication;
 import ru.msu.cs.TheaterWeb.entities.Theater;
 
@@ -20,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
 public class TheaterDAOTest {
-    @Autowired
-    private TheaterDAOImpl theaterDAO;
+    @Autowired()
+    private TheaterDAO theaterDAO;
 
     @Autowired
     private SessionFactory sessionFactory;
