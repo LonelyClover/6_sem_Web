@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes= TheaterWebApplication.class)
+@SpringBootTest(classes=TheaterWebApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
 public class TheaterDAOTest {
@@ -50,7 +50,7 @@ public class TheaterDAOTest {
 
     @Test
     void testFilterTheaterAddress() {
-        TheaterDAO.Filter filter = TheaterDAO.Filter.builder().theaterName("2").build();
+        TheaterDAO.Filter filter = TheaterDAO.Filter.builder().theaterAddress("2").build();
         List<Theater> l = theaterDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
