@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ROle")
+@Table(name = "role")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,19 +14,19 @@ import javax.persistence.*;
 public class Role implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Actor ID")
+    @JoinColumn(name = "actor_id")
     @NonNull
     private Actor actor;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Play ID")
+    @JoinColumn(name = "play_id")
     @NonNull
     private Play play;
 
-    @Column(name = "Info")
+    @Column(name = "info")
     private String info;
 }

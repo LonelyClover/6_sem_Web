@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Ticket price")
+@Table(name = "ticket_price")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,19 +14,19 @@ import javax.persistence.*;
 public class TicketPrice implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Performance ID")
+    @JoinColumn(name = "performance_id")
     @NonNull
     private Performance performance;
 
-    @Column(name = "Place type", nullable = false)
+    @Column(name = "place_type", nullable = false)
     @NonNull
     private PlaceType placeType;
 
-    @Column(name = "Price", nullable = false)
+    @Column(name = "price", nullable = false)
     @NonNull
     private Long price;
 }

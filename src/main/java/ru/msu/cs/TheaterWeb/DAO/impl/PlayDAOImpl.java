@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.PlayDAO;
 import ru.msu.cs.TheaterWeb.entities.Play;
+import ru.msu.cs.TheaterWeb.entities.Theater;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -20,13 +21,14 @@ public class PlayDAOImpl extends CommonDAOImpl<Play> implements PlayDAO {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Play> query = builder.createQuery(Play.class);
             Root<Play> root = query.from(Play.class);
+            Join<Play, Theater> join = root.join("theater");
 
             List<Predicate> predicates = new ArrayList<>();
             if (filter.getPlayName() != null) {
                 predicates.add(builder.like(root.get("name"), likeStr(filter.getPlayName())));
             }
             if (filter.getTheaterName() != null) {
-                predicates.add(builder.like(root.get("theater.name"), likeStr(filter.getTheaterName())));
+                predicates.add(builder.like(join.get("name"), likeStr(filter.getTheaterName())));
             }
 
             if (!predicates.isEmpty())

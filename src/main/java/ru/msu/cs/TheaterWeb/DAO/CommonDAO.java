@@ -1,6 +1,5 @@
 package ru.msu.cs.TheaterWeb.DAO;
 
-import lombok.Builder;
 import ru.msu.cs.TheaterWeb.entities.CommonEntity;
 
 import java.util.List;
@@ -17,6 +16,4 @@ public interface CommonDAO<Entity extends CommonEntity> {
     void update(Entity entity);
 
     void delete(Entity entity);
-
-    void deleteAll();
 }

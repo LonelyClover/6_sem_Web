@@ -26,12 +26,13 @@ public class TheaterDAOImpl extends CommonDAOImpl<Theater> implements TheaterDAO
             if (filter.getTheaterName() != null) {
                 predicates.add(builder.like(root.get("name"), likeStr(filter.getTheaterName())));
             }
-            if (filter.getTheaterName() != null) {
+            if (filter.getTheaterAddress() != null) {
                 predicates.add(builder.like(root.get("address"), likeStr(filter.getTheaterAddress())));
             }
 
-            if (!predicates.isEmpty())
+            if (!predicates.isEmpty()) {
                 query.where(predicates.toArray(new Predicate[0]));
+            }
 
             return session.createQuery(query).getResultList();
         }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import ru.msu.cs.TheaterWeb.TheaterWebApplication;
+import ru.msu.cs.TheaterWeb.entities.Actor;
 import ru.msu.cs.TheaterWeb.entities.Theater;
 
 import java.util.List;
@@ -16,7 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes= TheaterWebApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
-public class TheaterDAOTest {
+public class ActorDAOTest {
+    @Autowired
+    private ActorDAO actorDAO;
+
     @Autowired
     private TheaterDAO theaterDAO;
 
@@ -25,9 +29,16 @@ public class TheaterDAOTest {
 
     @BeforeEach
     void setup() {
-        theaterDAO.save(new Theater("Name 1", "Address 1"));
-        theaterDAO.save(new Theater("Name 2", "Address 2"));
-        theaterDAO.save(new Theater("Name 12", "Address 12"));
+        Theater theater1 = new Theater("Name 1", "Address 1");
+        Theater theater2 = new Theater("Name 2", "Address 2");
+        Theater theater3 = new Theater("Name 12", "Address 12");
+        theaterDAO.save(theater1);
+        theaterDAO.save(theater2);
+        theaterDAO.save(theater3);
+
+        actorDAO.save(new Actor("Name 1", theater1));
+        actorDAO.save(new Actor("Name 2", theater2));
+        actorDAO.save(new Actor("Name 12", theater3));
     }
 
     @BeforeAll
@@ -35,6 +46,8 @@ public class TheaterDAOTest {
     void cleanup() {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
+            session.createSQLQuery("TRUNCATE actor RESTART IDENTITY CASCADE;").executeUpdate();
+            session.createSQLQuery("ALTER SEQUENCE actor_id_seq RESTART WITH 1;").executeUpdate();
             session.createSQLQuery("TRUNCATE theater RESTART IDENTITY CASCADE;").executeUpdate();
             session.createSQLQuery("ALTER SEQUENCE theater_id_seq RESTART WITH 1;").executeUpdate();
             session.getTransaction().commit();
@@ -42,16 +55,16 @@ public class TheaterDAOTest {
     }
 
     @Test
-    void testFilterTheaterName() {
-        TheaterDAO.Filter filter = TheaterDAO.Filter.builder().theaterName("1").build();
-        List<Theater> l = theaterDAO.getByFilter(filter);
+    void testFilterActorName() {
+        ActorDAO.Filter filter = ActorDAO.Filter.builder().actorName("1").build();
+        List<Actor> l = actorDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
 
     @Test
-    void testFilterTheaterAddress() {
-        TheaterDAO.Filter filter = TheaterDAO.Filter.builder().theaterName("2").build();
-        List<Theater> l = theaterDAO.getByFilter(filter);
+    void testFilterTheaterName() {
+        ActorDAO.Filter filter = ActorDAO.Filter.builder().theaterName("2").build();
+        List<Actor> l = actorDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
 }

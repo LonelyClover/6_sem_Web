@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Director")
+@Table(name = "director")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,18 +14,18 @@ import javax.persistence.*;
 public class Director implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     @NonNull
     private String name;
 
-    @Column(name = "Info")
+    @Column(name = "info")
     private String info;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Theater ID")
+    @JoinColumn(name = "theater_id")
     @NonNull
     private Theater theater;
 }

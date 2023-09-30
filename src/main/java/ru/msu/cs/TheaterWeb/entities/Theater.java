@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Theater")
+@Table(name = "theater")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,17 +14,17 @@ import javax.persistence.*;
 public class Theater implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     @NonNull
     private String name;
 
-    @Column(name = "Address", nullable = false)
+    @Column(name = "address", nullable = false)
     @NonNull
     private String address;
 
-    @Column(name = "Info")
+    @Column(name = "info")
     private String info;
 }

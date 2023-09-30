@@ -3,7 +3,7 @@ package ru.msu.cs.TheaterWeb.DAO.impl;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import ru.msu.cs.TheaterWeb.DAO.TicketDAO;
-import ru.msu.cs.TheaterWeb.entities.Ticket;
+import ru.msu.cs.TheaterWeb.entities.*;
 
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
@@ -20,6 +20,11 @@ public class TicketDAOImpl extends CommonDAOImpl<Ticket> implements TicketDAO {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Ticket> query = builder.createQuery(Ticket.class);
             Root<Ticket> root = query.from(Ticket.class);
+            Join<Ticket, Place> joinPlace = root.join("place");
+            Join<Ticket, Performance> joinPerformance = root.join("performance");
+            Join<Performance, Play> joinPlay = joinPerformance.join("play");
+            Join<Play, Theater> joinTheater = joinPlay.join("theater");
+
 
             List<Predicate> predicates = new ArrayList<>();
             if (filter.getCustomerName() != null) {
@@ -29,16 +34,17 @@ public class TicketDAOImpl extends CommonDAOImpl<Ticket> implements TicketDAO {
                 predicates.add(builder.like(root.get("customerPhoneNumber"), likeStr(filter.getCustomerPhoneNumber())));
             }
             if (filter.getTheaterName() != null) {
-                predicates.add(builder.like(root.get("theater.name"), likeStr(filter.getTheaterName())));
+                predicates.add(builder.like(joinTheater.get("name"), likeStr(filter.getTheaterName())));
             }
             if (filter.getPlayName() != null) {
-                predicates.add(builder.like(root.get("performance.play.name"), likeStr(filter.getPlayName())));
+                predicates.add(builder.like(joinPlay.get("name"), likeStr(filter.getPlayName())));
             }
-            if (filter.getDatetime() != null) {
-                predicates.add(builder.equal(root.get("performance.datetime"), filter.getDatetime()));
+            if (filter.getDate() != null) {
+                predicates.add(builder.greaterThanOrEqualTo(joinPerformance.get("datetime"), filter.getDate().atStartOfDay()));
+                predicates.add(builder.lessThan(joinPerformance.get("datetime"), filter.getDate().plusDays(1).atStartOfDay()));
             }
             if (filter.getPlaceType() != null) {
-                predicates.add(builder.equal(root.get("place.placeType"), filter.getPlaceType()));
+                predicates.add(builder.equal(joinPlace.get("placeType"), filter.getPlaceType()));
             }
 
             if (!predicates.isEmpty())

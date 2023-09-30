@@ -9,14 +9,15 @@ import org.springframework.test.context.TestPropertySource;
 import ru.msu.cs.TheaterWeb.TheaterWebApplication;
 import ru.msu.cs.TheaterWeb.entities.Theater;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes= TheaterWebApplication.class)
+@SpringBootTest(classes=TheaterWebApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
-public class TheaterDAOTest {
+public class CommonDAOTest {
     @Autowired
     private TheaterDAO theaterDAO;
 
@@ -42,16 +43,59 @@ public class TheaterDAOTest {
     }
 
     @Test
-    void testFilterTheaterName() {
-        TheaterDAO.Filter filter = TheaterDAO.Filter.builder().theaterName("1").build();
-        List<Theater> l = theaterDAO.getByFilter(filter);
-        assertEquals(2, l.size());
+    void testGetById() {
+        Theater t = theaterDAO.getById(1L);
+        assertEquals("Name 1", t.getName());
+    }
+    @Test
+    void testGetByIdNull() {
+        Theater t = theaterDAO.getById(6L);
+        assertNull(t);
+    }
+    @Test
+    void testGetAll() {
+        List<Theater> l = theaterDAO.getAll();
+        assertEquals(3, l.size());
     }
 
     @Test
-    void testFilterTheaterAddress() {
-        TheaterDAO.Filter filter = TheaterDAO.Filter.builder().theaterName("2").build();
-        List<Theater> l = theaterDAO.getByFilter(filter);
+    void testSave() {
+        Theater t = new Theater("Name 3", "Address 3");
+        theaterDAO.save(t);
+
+        List<Theater> l = theaterDAO.getAll();
+        assertEquals(4, l.size());
+    }
+
+    @Test
+    void testSaveAll() {
+        List<Theater> l1 = new ArrayList<>();
+        Theater t1 = new Theater("Name 3", "Address 3");
+        l1.add(t1);
+        Theater t2 = new Theater("Name 4", "Address 4");
+        l1.add(t2);
+        theaterDAO.saveAll(l1);
+
+        List<Theater> l = theaterDAO.getAll();
+        assertEquals(5, l.size());
+    }
+
+    @Test
+    void testUpdate() {
+        Theater t1 = theaterDAO.getById(1L);
+        t1.setInfo("Very good");
+        theaterDAO.update(t1);
+
+        Theater t2 = theaterDAO.getById(1L);
+        assertEquals("Very good", t2.getInfo());
+    }
+
+    @Test
+    void testDelete() {
+        Theater t = theaterDAO.getById(1L);
+        theaterDAO.delete(t);
+
+        List<Theater> l = theaterDAO.getAll();
         assertEquals(2, l.size());
     }
 }

@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Performance")
+@Table(name = "performance")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,15 +15,15 @@ import java.time.LocalDateTime;
 public class Performance implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "Date and time", nullable = false)
+    @Column(name = "datetime", nullable = false)
     @NonNull
     private LocalDateTime datetime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Play ID")
+    @JoinColumn(name = "play_id")
     @NonNull
     private Play play;
 }

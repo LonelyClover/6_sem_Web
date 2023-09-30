@@ -83,19 +83,7 @@ public abstract class CommonDAOImpl<Entity extends CommonEntity> implements Comm
         }
     }
 
-    @Override
-    public void deleteAll() {
-        List<Entity> entities = getAll();
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            for (Entity entity : entities) {
-                session.delete(entity);
-            }
-            session.getTransaction().commit();
-        }
-    }
-
-    protected static String likeStr(String str) {
+    protected String likeStr(String str) {
         return "%" + str + "%";
     }
 }

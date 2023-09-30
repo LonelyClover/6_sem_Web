@@ -22,8 +22,9 @@ public class PerformanceDAOImpl extends CommonDAOImpl<Performance> implements Pe
             Root<Performance> root = query.from(Performance.class);
 
             List<Predicate> predicates = new ArrayList<>();
-            if (filter.getDatetime() != null) {
-                predicates.add(builder.equal(root.get("datetime"), filter.getDatetime()));
+            if (filter.getDate() != null) {
+                predicates.add(builder.greaterThanOrEqualTo(root.get("datetime"), filter.getDate().atStartOfDay()));
+                predicates.add(builder.lessThan(root.get("datetime"), filter.getDate().plusDays(1).atStartOfDay()));
             }
 
             if (!predicates.isEmpty())

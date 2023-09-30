@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import ru.msu.cs.TheaterWeb.entities.*;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -26,18 +25,8 @@ public class HibernateDatabaseConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
+        sessionFactory.setPackagesToScan("ru.msu.cs.TheaterWeb.entities");
         sessionFactory.setDataSource(getDataSource());
-
-        sessionFactory.setAnnotatedClasses(TicketPrice.class);
-        sessionFactory.setAnnotatedClasses(Ticket.class);
-        sessionFactory.setAnnotatedClasses(Performance.class);
-        sessionFactory.setAnnotatedClasses(Role.class);
-        sessionFactory.setAnnotatedClasses(Play.class);
-        sessionFactory.setAnnotatedClasses(Place.class);
-        sessionFactory.setAnnotatedClasses(Director.class);
-        sessionFactory.setAnnotatedClasses(Actor.class);
-        sessionFactory.setAnnotatedClasses(Theater.class);
-
         sessionFactory.setHibernateProperties(getHibernateProperties());
 
         return sessionFactory;
@@ -59,7 +48,7 @@ public class HibernateDatabaseConfig {
         Properties hibernateProperties = new Properties();
 
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL10Dialect");
         hibernateProperties.setProperty("connection_pool_size", "1");
 
         return hibernateProperties;

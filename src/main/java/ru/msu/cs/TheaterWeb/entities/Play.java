@@ -1,6 +1,9 @@
 package ru.msu.cs.TheaterWeb.entities;
 
+import com.vladmihalcea.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.*;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 import java.time.Duration;
 
@@ -12,30 +15,34 @@ import java.time.Duration;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
+@TypeDef(
+        typeClass = PostgreSQLIntervalType.class,
+        defaultForType = Duration.class
+)
 public class Play implements CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     @NonNull
     private String name;
 
-    @Column(name = "Duration", nullable = false)
+    @Column(name = "duration", nullable = false)
     @NonNull
     private Duration duration;
 
-    @Column(name = "Info")
+    @Column(name = "info")
     private String info;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Theater ID")
+    @JoinColumn(name = "theater_id")
     @NonNull
     private Theater theater;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Director ID")
+    @JoinColumn(name = "director_id")
     @NonNull
     private Director director;
 }
