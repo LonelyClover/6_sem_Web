@@ -10,9 +10,10 @@ import java.util.List;
 public interface PlaceDAO extends CommonDAO<Place> {
     @Getter
     @Builder
-    class Filter {
+    class Filter extends CommonFilter {
         private String theaterName;
         private PlaceType placeType;
+        private Long theaterId;
     }
 
     List<Place> getByFilter(Filter filter);

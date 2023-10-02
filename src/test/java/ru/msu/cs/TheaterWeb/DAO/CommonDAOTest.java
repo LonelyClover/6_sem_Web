@@ -48,8 +48,14 @@ public class CommonDAOTest {
         assertEquals("Name 1", t.getName());
     }
     @Test
-    void testGetByIdNull() {
+    void testGetByIdWrong() {
         Theater t = theaterDAO.getById(6L);
+        assertNull(t);
+    }
+
+    @Test
+    void testGetByIdNull() {
+        Theater t = theaterDAO.getById(null);
         assertNull(t);
     }
     @Test
@@ -94,6 +100,14 @@ public class CommonDAOTest {
     void testDelete() {
         Theater t = theaterDAO.getById(1L);
         theaterDAO.delete(t);
+
+        List<Theater> l = theaterDAO.getAll();
+        assertEquals(2, l.size());
+    }
+
+    @Test
+    void testDeleteById() {
+        theaterDAO.deleteById(2L);
 
         List<Theater> l = theaterDAO.getAll();
         assertEquals(2, l.size());

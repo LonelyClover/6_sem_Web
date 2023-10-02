@@ -46,6 +46,9 @@ public class TicketDAOImpl extends CommonDAOImpl<Ticket> implements TicketDAO {
             if (filter.getPlaceType() != null) {
                 predicates.add(builder.equal(joinPlace.get("placeType"), filter.getPlaceType()));
             }
+            if (filter.getPerformanceId() != null) {
+                predicates.add(builder.equal(joinPerformance.get("id"), filter.getPerformanceId()));
+            }
 
             if (!predicates.isEmpty())
                 query.where(predicates.toArray(new Predicate[0]));

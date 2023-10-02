@@ -9,7 +9,7 @@ import java.util.List;
 public interface TheaterDAO extends CommonDAO<Theater> {
     @Getter
     @Builder
-    class Filter {
+    class Filter extends CommonFilter {
         private String theaterName;
         private String theaterAddress;
     }

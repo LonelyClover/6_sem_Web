@@ -30,6 +30,9 @@ public class PlaceDAOImpl extends CommonDAOImpl<Place> implements PlaceDAO {
             if (filter.getPlaceType() != null) {
                 predicates.add(builder.equal(root.get("placeType"), filter.getPlaceType()));
             }
+            if (filter.getTheaterId() != null) {
+                predicates.add((builder.equal(join.get("id"), filter.getTheaterId())));
+            }
 
             if (!predicates.isEmpty())
                 query.where(predicates.toArray(new Predicate[0]));

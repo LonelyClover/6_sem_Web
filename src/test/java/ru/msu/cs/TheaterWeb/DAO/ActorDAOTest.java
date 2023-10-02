@@ -67,4 +67,11 @@ public class ActorDAOTest {
         List<Actor> l = actorDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
+
+    @Test
+    void testFilterTheaterId() {
+        ActorDAO.Filter filter = ActorDAO.Filter.builder().theaterId(1L).build();
+        List<Actor> l = actorDAO.getByFilter(filter);
+        assertEquals(1, l.size());
+    }
 }

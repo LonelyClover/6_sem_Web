@@ -10,8 +10,9 @@ import java.util.List;
 public interface PerformanceDAO extends CommonDAO<Performance> {
     @Getter
     @Builder
-    class Filter {
+    class Filter extends CommonFilter {
         private LocalDate date;
+        private Long playId;
     }
 
     List<Performance> getByFilter(Filter filter);

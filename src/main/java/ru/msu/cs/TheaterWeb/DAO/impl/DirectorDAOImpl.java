@@ -30,6 +30,9 @@ public class DirectorDAOImpl extends CommonDAOImpl<Director> implements Director
             if (filter.getTheaterName() != null) {
                 predicates.add(builder.like(join.get("name"), likeStr(filter.getTheaterName())));
             }
+            if (filter.getTheaterId() != null) {
+                predicates.add(builder.equal(join.get("id"), filter.getTheaterId()));
+            }
 
             if (!predicates.isEmpty())
                 query.where(predicates.toArray(new Predicate[0]));

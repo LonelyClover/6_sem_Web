@@ -9,9 +9,10 @@ import java.util.List;
 public interface ActorDAO extends CommonDAO<Actor> {
     @Getter
     @Builder
-    class Filter {
+    class Filter extends CommonFilter {
         private String actorName;
         private String theaterName;
+        private Long theaterId;
     }
 
     List<Actor> getByFilter(Filter filter);

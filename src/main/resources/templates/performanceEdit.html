@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Редактор выступления</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{general :: page-header}"> </div>
+
+<div class="indent">
+    <form method="post" action="/performanceSave">
+        <input type="hidden" name="performance_id" th:value="${performance.getId()}">
+        <input type="hidden" name="play_id" th:value="${playId}">
+
+        <label for="performance_datetime">Дата и время</label><br>
+        <input type="datetime-local" id="performance_datetime" name="performance_datetime"
+               th:value="${performance?.getDatetime()?.toString()}"><br><br>
+
+        <p>Cтоимость мест</p>
+        <label for="price_lodge">Лоджия</label><br>
+        <input type="number" id="price_lodge" name="price_lodge"
+               th:value="${ticketPriceMap != null ? ticketPriceMap.get(PlaceType.LODGE) : null}"><br><br>
+
+        <label for="price_parterre">Партер</label><br>
+        <input type="number" id="price_parterre" name="price_parterre"
+               th:value="${ticketPriceMap != null ? ticketPriceMap.get(PlaceType.PARTERRE) : null}"><br><br>
+
+        <label for="price_amphitheater">Амфитеатр</label><br>
+        <input type="number" id="price_amphitheater" name="price_amphitheater"
+               th:value="${ticketPriceMap != null ? ticketPriceMap.get(PlaceType.AMPHITHEATER) : null}"><br><br>
+
+        <label for="price_mezzanine">Бельэтаж</label><br>
+        <input type="number" id="price_mezzanine" name="price_mezzanine"
+               th:value="${ticketPriceMap != null ? ticketPriceMap.get(PlaceType.MEZZANINE) : null}"><br><br>
+
+        <label for="price_balcony">Балкон</label><br>
+        <input type="number" id="price_balcony" name="price_balcony"
+               th:value="${ticketPriceMap != null ? ticketPriceMap.get(PlaceType.BALCONY) : null}"><br><br>
+
+        <input type="submit" value="Сохранить" class="btn btn-primary">
+    </form>
+</div>
+
+<div th:replace="~{general :: site-script}"></div>
+
+</body>
+</html>

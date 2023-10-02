@@ -80,8 +80,7 @@ public class TicketDAOTest {
         placeDAO.save(place2);
         placeDAO.save(place3);
 
-        Ticket ticket = new Ticket(performance1, place1, "Customer 1", "+12345");
-        ticketDAO.save(ticket);
+        ticketDAO.save(new Ticket(performance1, place1, "Customer 1", "+12345"));
         ticketDAO.save(new Ticket(performance2, place2, "Customer 2", "+67890"));
         ticketDAO.save(new Ticket(performance3, place3, "Customer 12", "+13579"));
     }
@@ -146,5 +145,12 @@ public class TicketDAOTest {
         TicketDAO.Filter filter = TicketDAO.Filter.builder().placeType(PlaceType.PARTERRE).build();
         List<Ticket> l = ticketDAO.getByFilter(filter);
         assertEquals(2, l.size());
+    }
+
+    @Test
+    void testFilterPerformanceId() {
+        TicketDAO.Filter filter = TicketDAO.Filter.builder().performanceId(1L).build();
+        List<Ticket> l = ticketDAO.getByFilter(filter);
+        assertEquals(1, l.size());
     }
 }

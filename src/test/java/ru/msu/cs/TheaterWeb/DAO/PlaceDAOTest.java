@@ -68,4 +68,11 @@ public class PlaceDAOTest {
         List<Place> l = placeDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
+
+    @Test
+    void testFilterTheaterId() {
+        PlaceDAO.Filter filter = PlaceDAO.Filter.builder().theaterId(1L).build();
+        List<Place> l = placeDAO.getByFilter(filter);
+        assertEquals(1, l.size());
+    }
 }

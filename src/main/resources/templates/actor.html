@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Информация об актере</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{general :: page-header}"> </div>
+
+<div class="indent">
+    <div>
+        <h4 th:text="${actor.getName()}"></h4>
+            <p th:text="${actor.getTheater().getName()}"></p>
+        <p th:if="${actor.getInfo() != null}" th:text="${actor.getInfo()}"></p>
+    </div>
+
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+            <form style="margin-right: 30px" method="get" action="/theater">
+                <input type="hidden" name="theater_id" th:value="${actor.getTheater().getId()}"/>
+                <button type="submit" class="btn btn-secondary">Информация о театре</button>
+            </form>
+            <form method="get" action="/playList">
+                <input type="hidden" name="filter_actor_id" th:value="${actor.getId()}"/>
+                <button type="submit" class="btn btn-secondary">Репертуар актера</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+            <form style="margin-right: 30px" method="get" action="/actorEdit">
+                <input type="hidden" name="actor_id" th:value="${actor.getId()}"/>
+                <button type="submit" class="btn btn-secondary">Редактировать информацию об актере</button>
+            </form>
+            <form method="post" action="/actorDelete">
+                <input type="hidden" name="actor_id" th:value="${actor.getId()}"/>
+                <button type="submit" class="btn btn-secondary">Удалить актера из кассы</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{general :: site-script}"></div>
+
+</body>
+</html>

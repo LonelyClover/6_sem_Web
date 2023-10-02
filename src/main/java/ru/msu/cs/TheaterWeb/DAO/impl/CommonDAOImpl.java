@@ -29,6 +29,9 @@ public abstract class CommonDAOImpl<Entity extends CommonEntity> implements Comm
     @Override
     public Entity getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
+            if (id == null) {
+                return null;
+            }
             return session.get(persistentClass, id);
         }
     }
@@ -45,9 +48,7 @@ public abstract class CommonDAOImpl<Entity extends CommonEntity> implements Comm
     @Override
     public void save(Entity entity) {
         try (Session session = sessionFactory.openSession()) {
-            if (entity.getId() != null) {
-                entity.setId(null);
-            }
+            entity.setId(null);
             session.beginTransaction();
             session.saveOrUpdate(entity);
             session.getTransaction().commit();
@@ -81,6 +82,11 @@ public abstract class CommonDAOImpl<Entity extends CommonEntity> implements Comm
             session.delete(entity);
             session.getTransaction().commit();
         }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        delete(getById(id));
     }
 
     protected String likeStr(String str) {

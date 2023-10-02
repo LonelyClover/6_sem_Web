@@ -2,6 +2,7 @@ package ru.msu.cs.TheaterWeb.entities;
 
 import com.vladmihalcea.hibernate.type.interval.PostgreSQLIntervalType;
 import lombok.*;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
@@ -45,4 +46,12 @@ public class Play implements CommonEntity {
     @JoinColumn(name = "director_id")
     @NonNull
     private Director director;
+
+
+    public String getDurationString() {
+        if (this.duration == null) {
+            return null;
+        }
+        return DurationFormatUtils.formatDuration(this.duration.toMillis(), "HH:mm");
+    }
 }

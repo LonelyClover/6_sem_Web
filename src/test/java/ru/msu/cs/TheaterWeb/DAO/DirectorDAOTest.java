@@ -67,4 +67,11 @@ public class DirectorDAOTest {
         List<Director> l = directorDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
+
+    @Test
+    void testFilterTheaterId() {
+        DirectorDAO.Filter filter = DirectorDAO.Filter.builder().theaterId(1L).build();
+        List<Director> l = directorDAO.getByFilter(filter);
+        assertEquals(1, l.size());
+    }
 }

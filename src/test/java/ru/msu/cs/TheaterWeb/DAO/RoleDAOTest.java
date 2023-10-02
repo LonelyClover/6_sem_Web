@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes=TheaterWebApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestPropertySource(locations="classpath:application.properties")
-public class PlayDAOTest {
+public class RoleDAOTest {
     @Autowired
     private RoleDAO roleDAO;
 
@@ -38,37 +38,31 @@ public class PlayDAOTest {
 
     @BeforeEach
     void setup() {
-        Theater theater1 = new Theater("Name 1", "Address 1");
-        Theater theater2 = new Theater("Name 2", "Address 2");
-        Theater theater3 = new Theater("Name 12", "Address 12");
-        theaterDAO.save(theater1);
-        theaterDAO.save(theater2);
-        theaterDAO.save(theater3);
+        Theater theater = new Theater("Name 1", "Address 1");
+        theaterDAO.save(theater);
 
-        Director director1 = new Director("Name 1", theater1);
-        Director director2 = new Director("Name 2", theater2);
-        Director director3 = new Director("Name 12", theater3);
-        directorDAO.save(director1);
-        directorDAO.save(director2);
-        directorDAO.save(director3);
+        Director director = new Director("Name 1", theater);
+        directorDAO.save(director);
 
-        Actor actor1 = new Actor("Name 1", theater1);
-        Actor actor2 = new Actor("Name 2", theater2);
-        Actor actor3 = new Actor("Name 3", theater3);
+        Actor actor1 = new Actor("Name 1", theater);
+        Actor actor2 = new Actor("Name 2", theater);
+        Actor actor3 = new Actor("Name 3", theater);
         actorDAO.save(actor1);
         actorDAO.save(actor2);
         actorDAO.save(actor3);
 
-        Play play1 = new Play("Name 1", Duration.ofHours(3), theater1, director1);
-        Play play2 = new Play("Name 2", Duration.ofHours(2), theater2, director2);
-        Play play3 = new Play("Name 12", Duration.ofHours(1), theater3, director3);
+
+        Play play1 = new Play("Name 1", Duration.ofHours(3), theater, director);
+        Play play2 = new Play("Name 2", Duration.ofHours(2), theater, director);
         playDAO.save(play1);
         playDAO.save(play2);
-        playDAO.save(play3);
 
         roleDAO.save(new Role(actor1, play1));
+        roleDAO.save(new Role(actor2, play1));
+        roleDAO.save(new Role(actor3, play1));
+        roleDAO.save(new Role(actor1, play2));
         roleDAO.save(new Role(actor2, play2));
-        roleDAO.save(new Role(actor3, play3));
+        roleDAO.save(new Role(actor3, play2));
     }
 
     @BeforeAll
@@ -91,37 +85,16 @@ public class PlayDAOTest {
     }
 
     @Test
-    void testFilterPlayName() {
-        PlayDAO.Filter filter = PlayDAO.Filter.builder().playName("1").build();
-        List<Play> l = playDAO.getByFilter(filter);
+    void testFilterRoleActorId() {
+        RoleDAO.Filter filter = RoleDAO.Filter.builder().actorId(1L).build();
+        List<Role> l = roleDAO.getByFilter(filter);
         assertEquals(2, l.size());
     }
 
     @Test
-    void testFilterTheaterName() {
-        PlayDAO.Filter filter = PlayDAO.Filter.builder().theaterName("2").build();
-        List<Play> l = playDAO.getByFilter(filter);
-        assertEquals(2, l.size());
-    }
-
-    @Test
-    void testFilterTheaterId() {
-        PlayDAO.Filter filter = PlayDAO.Filter.builder().theaterId(1L).build();
-        List<Play> l = playDAO.getByFilter(filter);
-        assertEquals(1, l.size());
-    }
-
-    @Test
-    void testFilterDirectorId() {
-        PlayDAO.Filter filter = PlayDAO.Filter.builder().directorId(1L).build();
-        List<Play> l = playDAO.getByFilter(filter);
-        assertEquals(1, l.size());
-    }
-
-    @Test
-    void testFilterActorId() {
-        PlayDAO.Filter filter = PlayDAO.Filter.builder().actorId(1L).build();
-        List<Play> l = playDAO.getByFilter(filter);
-        assertEquals(1, l.size());
+    void testFilterPlayId() {
+        RoleDAO.Filter filter = RoleDAO.Filter.builder().playId(1L).build();
+        List<Role> l = roleDAO.getByFilter(filter);
+        assertEquals(3, l.size());
     }
 }

@@ -11,13 +11,15 @@ import java.util.List;
 public interface TicketDAO extends CommonDAO<Ticket> {
     @Getter
     @Builder
-    class Filter {
+    class Filter extends CommonFilter {
         private String customerName;
         private String customerPhoneNumber;
         private String theaterName;
         private String playName;
         private LocalDate date;
         private PlaceType placeType;
+        private Long performanceId;
+        private Long ticketId;
     }
 
     List<Ticket> getByFilter(Filter filter);
